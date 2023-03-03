@@ -62,7 +62,6 @@
 /* Middleware libraries */
 #include "cy_retarget_io.h"
 #include "cy_wcm.h"
-#include "cy_lwip.h"
 
 #include "cy_mqtt_api.h"
 #include "clock.h"

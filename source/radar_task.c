@@ -379,7 +379,6 @@ void radar_task(void *pvParameters)
         vTaskSuspend(NULL);
     }
 
-
     /**
      * Create task for radar configuration. Configuration parameters come from
      * Subscriber task. 
@@ -438,8 +437,6 @@ void radar_task(void *pvParameters)
                 
                 xSemaphoreGive(sem_radar_presence);
             }
-            
-            
         }
     }
 }

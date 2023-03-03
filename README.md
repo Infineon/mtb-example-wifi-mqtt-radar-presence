@@ -8,14 +8,14 @@ In this example, the MQTT client RTOS task establishes a connection with the con
 This code example uses the AWS IoT device SDK MQTT client library to implement the MQTT client.
          ![](images/mqtt_blockdiagram.png)
 
-[View this README on GitHub.](https://github.com/Infineon/mtb-example-anycloud-mqtt-radar-presence)
+[View this README on GitHub.](https://github.com/Infineon/mtb-example-wifi-mqtt-radar-presence)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzY2MzgiLCJTcGVjIE51bWJlciI6IjAwMi0zNjYzOCIsIkRvYyBUaXRsZSI6Ik1RVFQgY2xpZW50OiBIdW1hbiBwcmVzZW5jZSBkZXRlY3Rpb24iLCJyaWQiOiJ1c21hbm11aCIsIkRvYyB2ZXJzaW9uIjoiMC41LjEiLCJEb2MgTGFuZ3VhZ2UiOiJFbmdsaXNoIiwiRG9jIERpdmlzaW9uIjoiTUNEIiwiRG9jIEJVIjoiU0JTWVMiLCJEb2MgRmFtaWx5IjoiU1VCU1lTIn0=)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzY2MzgiLCJTcGVjIE51bWJlciI6IjAwMi0zNjYzOCIsIkRvYyBUaXRsZSI6Ik1RVFQgY2xpZW50OiBIdW1hbiBwcmVzZW5jZSBkZXRlY3Rpb24iLCJyaWQiOiJ1c21hbm11aCIsIkRvYyB2ZXJzaW9uIjoiMS4wLjAiLCJEb2MgTGFuZ3VhZ2UiOiJFbmdsaXNoIiwiRG9jIERpdmlzaW9uIjoiTUNEIiwiRG9jIEJVIjoiU0JTWVMiLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
 
 ## Requirements
 
-- [ModusToolbox&trade; software](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software) v2.4 or later (tested with v2.4)
-- Board support package (BSP) minimum required version: 3.0.0
+- [ModusToolbox&trade; software](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software) v3.0 or later (tested with v3.0)
+- Board support package (BSP) minimum required version: 4.0.0
 - Programming language: C
 - Associated parts: All [PSoC&trade; 6 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu) parts with SDIO, [AIROC™ CYW43012 Wi-Fi & Bluetooth® combo chip](https://www.infineon.com/dgdl/Infineon-CYW43012_Single-Chip%2CUltra-Low_IEEE_802.11n-compliant_802.11ac-friendly_MAC_Baseband_Radio_with_Bluetooth_5.0_for_IoT-AdditionalTechnicalInformation-v14_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee89f18715f), [AIROC™ CYW4343W Wi-Fi & Bluetooth® combo chip](https://www.infineon.com/dgdl/Infineon-CYW4334WKUBGT-DataSheet-v11_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee1f02f680f)
 
@@ -65,7 +65,7 @@ Create the project and open it using one of the following:
 
 1. Click the **New Application** link in the **Quick Panel** (or, use **File** > **New** > **ModusToolbox&trade; Application**). This launches the [Project Creator](https://www.infineon.com/ModusToolboxProjectCreator) tool.
 
-2. Pick a kit supported by the code example from the list shown in the **Project Creator - Choose Board Support Package (BSP)** dialog.
+2. Select CYSBSYSKIT-DEV-01 kit supported by the code example from the PSoC&trade; 6 BSPs list shown in the **Project Creator - Choose Board Support Package (BSP)** dialog.
 
    When you select a supported kit, the example is reconfigured automatically to work with the kit. To work with a different supported kit later, use the [Library Manager](https://www.infineon.com/ModusToolboxLibraryManager) to choose the BSP for the supported kit. You can use the Library Manager to select or update the BSP and firmware libraries used in this application. To access the Library Manager, click the link from the **Quick Panel**.
 
@@ -73,7 +73,7 @@ Create the project and open it using one of the following:
 
    If you want to use the application for a kit not listed here, you may need to update the source files. If the kit does not have the required resources, the application may not work.
 
-3. In the **Project Creator - Select Application** dialog, choose the example by enabling the checkbox.
+3. In the **Project Creator - Select Application** dialog, choose the **MQTT Human Presence** application from Sensing group by enabling the checkbox.
 
 4. (Optional) Change the suggested **New Application Name**.
 
@@ -102,15 +102,15 @@ Argument | Description | Required/optional
 
 <br>
 
-The following example clones the "[mtb-example-mqtt-radar-presence](https://github.com/Infineon/mtb-example-anycloud-mqtt-radar-presence)" application with the desired name "PresenceApplicationMQTT" configured for the *CYSBSYSKIT-DEV-01* BSP into the specified working directory, *C:/mtb_projects*:
+The following example clones the "[MQTT Presence](https://github.com/Infineon/mtb-example-wifi-mqtt-radar-presence)" application with the desired name "MQTTHumanPresence" configured for the *CYSBSYSKIT-DEV-01* BSP into the specified working directory, *C:/mtb_projects*:
 
    ```
-   project-creator-cli --board-id CYSBSYSKIT-DEV-01 --app-id mtb-example-anycloud-mqtt-radar-presence --user-app-name PresenceApplicationMQTT --target-dir "C:/mtb_projects"
+   project-creator-cli --board-id CYSBSYSKIT-DEV-01 --app-id mtb-example-wifi-mqtt-radar-presence --user-app-name MQTTHumanPresence --target-dir "C:/mtb_projects"
    ```
 
 **Note:** The project-creator-cli tool uses the `git clone` and `make getlibs` commands to fetch the repository and import the required libraries. For details, see the "Project creator tools" section of the [ModusToolbox&trade; software user guide](https://www.infineon.com/ModusToolboxUserGuide) (locally available at *{ModusToolbox&trade; software install directory}/docs_{version}/mtb_user_guide.pdf*).
 
-To work with a different supported kit later, use the [Library Manager](https://www.cypress.com/ModusToolboxLibraryManager) to choose the BSP for the supported kit. You can invoke the Library Manager GUI tool from the terminal using `make modlibs` command or use the Library Manager CLI tool "library-manager-cli" to change the BSP.
+To work with a different supported kit later, use the [Library Manager](https://www.cypress.com/ModusToolboxLibraryManager) to choose the BSP for the supported kit. You can invoke the Library Manager GUI tool from the terminal using `make library-manager` command or use the Library Manager CLI tool "library-manager-cli" to change the BSP.
 
 The "library-manager-cli" tool has the following arguments:
 
@@ -122,14 +122,6 @@ Argument | Description | Required/optional
 `--add-bsp-location`| Specify the location of the BSP (local/shared) if you prefer to add the BSP in a shared path | Optional
 
 <br />
-
-Following example adds the CY8CPROTO-062-4343W BSP to the already created application and makes it the active BSP for the app:
-
-   ```
-   library-manager-cli --project "C:/mtb_projects/MyHelloWorld" --add-bsp-name CY8CPROTO-062-4343W --add-bsp-version "latest-v4.X" --add-bsp-location "local"
-
-   library-manager-cli --project "C:/mtb_projects/MyHelloWorld" --set-active-bsp APP_CY8CPROTO-062-4343W
-   ```
 
 </details>
 
@@ -161,11 +153,24 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 </details>
 
+**Note**: On Windows, the location of the project may cause compilation errors in AWS libraries. The maximum path length can be increased to resolve this issue. Alternatively, moving this project to a shorter path i.e C:\mtb or reducing the length of project name might also work.
+
+**Note:** To use this code example in ModusToolbox v2.4, please refer to [Infineon-XENSIVTM_KIT_CSK_BGT60TR13C-UserGuide](https://www.infineon.com/cms/en/product/evaluation-boards/kit_csk_bgt60tr13c/#!documents) 
+
 ## Operation
 
 1. Modify the user configuration files in the *configs* directory as follows:
 
-      1. **Wi-Fi configuration:** Set the Wi-Fi credentials in *configs/wifi_config.h*: Modify the `WIFI_SSID`, `WIFI_PASSWORD`, and `WIFI_SECURITY` macros to match with that of the Wi-Fi network that you want to connect.
+      1. **Wi-Fi configuration:** Set the Wi-Fi credentials in *configs/wifi_config.h*: Modify the `WIFI_SSID`, `WIFI_PASSWORD`, and `WIFI_SECURITY` macros to match with that of the Wi-Fi network that you want to connect.   
+
+           **For Example**:
+
+           `WIFI_SSID` = **"IFX_Sensor"**
+
+            `WIFI_PASSWORD` = **"XXXXXXXXXXXXXX"**
+
+            `WIFI_SECURITY` = **"WPA2"**
+
 
       2. **MQTT configuration:** Set up the MQTT client and configure the credentials in *configs/mqtt_client_config.h*. Some of the important configuration macros are as follows:
 
@@ -191,9 +196,9 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
          - *configs/FreeRTOSConfig.h* used by the [FreeRTOS library](https://github.com/Infineon/freertos)
 
-3. Open a terminal program and select the KitProg3 COM port. Set the serial port parameters to 8N1 and 115200 baud.
+2. Open a terminal program and select the [KitProg3](https://www.infineon.com/dgdl/Infineon-KitProg3_User_Guide-UserManual-v01_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0f01221f1853) COM port. Set the serial port parameters to 8N1 and 115200 baud.
 
-4. Program the board using one of the following:
+3. Program the board using one of the following:
 
    <details><summary><b>Using Eclipse IDE for ModusToolbox&trade; software</b></summary>
 
@@ -219,20 +224,20 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
    </details>
 
    **Note**: While building the project in  some windows machines  it was observed that longer file path is causing "file not found" errors from the dependencies so keep the root path as short as possible  for instance C:\mtb\.
-5. After programming, the application starts automatically. Observe the messages on the UART terminal, and wait for the device to make all the required connections.
+4. After programming, the application starts automatically. Observe the messages on the UART terminal, and wait for the device to make all the required connections.
 
    **Figure 1. UART terminal showing the application initialization status**
 
-   ![](images/app_init.png)
+   ![](images/uart_mqtt.png)
 
-6. Once the initialization is complete, confirm that subscription to the topic is successful.
-7. If the radar wing board is connected and it detects a sensor event, the following messages are displayed in the terminal:
+5. Once the initialization is complete, confirm that subscription to the topic is successful.
+6. If the radar wing board is connected and it detects a sensor event, the following messages are displayed in the terminal:
 
    **Figure 2. Radar event detected**
 
    ![](images/module_output.png)
 
-8. Do the following if a radar event is detected:
+7. Do the following if a radar event is detected:
 
    <details><summary><b>For AWS IoT MQTT</b></summary>
 
@@ -298,15 +303,26 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
    | Key  |  Default value     | Valid values |
    | :------- | :------------    | :--------------------|
    | max_range (m)| 2.0 | 0.66-5.0 |
-   | macro_threshold | 1.0 | 0.1-100.0 |
-   | micro_threshold | 25.0 | 0.2-99.0 |
+   | macro_threshold | 1.0 | 0.5-2.0 |
+   | micro_threshold | 25.0 | 0.2-50.0 |
    | bandpass_filter | disable | enable/disable|
    | decimation_filter | disable | enable/disable |
    | mode | micro_if_macro | macro_only/micro_only/micro_if_macro/micro_and_macro |
 
    <br>
+   
+   **Micro-motions**:
+    Detecting small movements like fingure gestures or small headmovements in  a typical smart home environment for instance while working on lapop/keyboard.Micromotion also includes  detection of Stationary humans (normally breathing and blinking eyes) in sitting or standing positions (in line of sight).
+   
 
-9. Confirm that the following messages are printed when no wing boards are connected.
+   **Macro-motions**:
+    Detecting major movements into or through the field of view.(Motion Detection).
+
+
+
+   **Note**: Macro and Micro threshold parameters can be adjusted to achieve different levels of sensitivity.The  below table summarises three different levels (for instance high means  -solution being more sensitive to stationary peoples).
+
+8. Confirm that the following messages are printed when no wing boards are connected.
 
    **Figure 8. No wing board connected**
 
@@ -452,6 +468,8 @@ When a failure occurs, the MQTT client task handles the cleanup operations of va
 
 Download and install the Mosquitto broker for your PC from <https://mosquitto.org/download>. The following instructions help in setting up the Mosquitto broker for a secure connection with the client using self-signed SSL certificates. This requires **OpenSSL** which is already preloaded in the ModusToolbox&trade; software installation. Run the following commands with a CLI (on Windows, use the command line "modus-shell" program provided in the ModusToolbox&trade; software installation instead of the standard Windows command-line application).
 
+**Note:** Please note the use network security system may block the ports used by local Mosquitto broker. In this case contact you network administrator to resolve the issue. 
+
 1. Generate the CA certificate for the Mosquitto broker / server using the following commands. Follow the instructions in the command window to provide the details required.
 
    ```
@@ -539,7 +557,7 @@ Code examples  | [Using ModusToolbox&trade; software](https://github.com/Infineo
 Device documentation | [PSoC&trade; 6 MCU datasheets](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu/#!documents) <br /> [PSoC&trade; 6 technical reference manuals](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu/#!documents)<br />
 Development kits | [Rapid IoT connect developer kit](https://www.infineon.com/cms/en/product/evaluation-boards/kit_csk_bgt60tr13c/) <br>
 Libraries on GitHub  | [sensor-xensiv-bgt60trxx](https://github.com/Infineon/sensor-xensiv-bgt60trxx) –  Driver library to interface with the XENSIV&trade; BGT60TRxx 60 GHz FMCW Radar Sensors <br /> [xensiv-radar-presence](https://github.com/Infineon/xensiv-radar-presence) – Presence library to detect human presence using XENSIV&trade; BGT60TR13C <br /> [sensor-dsp](https://github.com/Infineon/sensor-dsp) – Sensor-DSP library to provide signal processing functions for sensor applications <br /> [mtb-pdl-cat1](https://github.com/Infineon/mtb-pdl-cat1) – PSoC&trade; 6 peripheral driver library (PDL)  <br /> [mtb-hal-cat1](https://github.com/Infineon/mtb-hal-cat1) – Hardware abstraction layer (HAL) library <br /> [retarget-io](https://github.com/Infineon/retarget-io) – Utility library to retarget STDIO messages to a UART port <br />
-Middleware on GitHub  | [mqtt](https://github.com/Infineon/mqtt) – MQTT client library and docs <br>  [wifi-connection-manager](https://github.com/Infineon/wifi-connection-manager) – Wi-Fi connection manager (WCM) library and docs <br> [wifi-mw-core](https://github.com/Infineon/wifi-mw-core) – Connectivity utilities and docs<br> [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSoC&trade; 6 MCU middleware
+Middleware on GitHub  | [mqtt](https://github.com/Infineon/mqtt) – MQTT client library and docs <br>  [wifi-core-freertos-lwip-mbedtls](https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls) – Wi-Fi connectivity libraries and docs <br> [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSoC&trade; 6 MCU middleware
 Tools  | [Eclipse IDE for ModusToolbox&trade; software](https://www.infineon.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use software and tools enabling rapid development with Infineon MCUs, covering applications from embedded sense and control to wireless and cloud-connected systems using AIROC&trade; Wi-Fi and Bluetooth® connectivity devices. <br />
 
 <br />
@@ -559,6 +577,7 @@ Document title: *CE236638* – *MQTT client: Human presence detection*
  Version | Description of change
  ------- | ---------------------
  0.5.1   | New code example
+ 1.0.0   | Major update to support ModusToolbox&trade; software v3.0 <br /> CE will not be backward compatible with previous versions of ModusToolbox&trade; software 
 <br />
 
 ---------------------------------------------------------

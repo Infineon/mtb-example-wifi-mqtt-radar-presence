@@ -59,12 +59,12 @@
 #define MAX_RANGE_MAX_LIMIT (5.0f)
 
 /* Macro threshold min - max */
-#define MACRO_THRESHOLD_MIN_LIMIT (0.1f)
-#define MACRO_THRESHOLD_MAX_LIMIT (100.0f)
+#define MACRO_THRESHOLD_MIN_LIMIT (0.5f)
+#define MACRO_THRESHOLD_MAX_LIMIT (2.0f)
 
 /* Micro threshold min - max */
 #define MICRO_THRESHOLD_MIN_LIMIT (0.2f)
-#define MICRO_THRESHOLD_MAX_LIMIT (99.0f)
+#define MICRO_THRESHOLD_MAX_LIMIT (50.0f)
 
 /* Names for presence parameters */
 #define MAX_RANGE_STRING        ("max_range")
@@ -280,6 +280,7 @@ static cy_rslt_t json_parser_cb(cy_JSON_object_t *json_object, void *arg)
 
         if (check_float_validation(float_value, MAX_RANGE_MIN_LIMIT, MAX_RANGE_MAX_LIMIT))
         {
+            *config_error = false;
             config.max_range_bin =  (int32_t)(float_value/binlength);
             printf("new max_range value is: %f\r\n", float_value);
         }
@@ -295,6 +296,7 @@ static cy_rslt_t json_parser_cb(cy_JSON_object_t *json_object, void *arg)
 
         if (check_float_validation(float_value, MACRO_THRESHOLD_MIN_LIMIT, MACRO_THRESHOLD_MAX_LIMIT))
         {
+            *config_error = false;
             printf("new macro_threshold value is: %f\r\n", float_value);
             config.macro_threshold = float_value;
         }
@@ -310,6 +312,7 @@ static cy_rslt_t json_parser_cb(cy_JSON_object_t *json_object, void *arg)
 
         if (check_float_validation(float_value, MICRO_THRESHOLD_MIN_LIMIT, MICRO_THRESHOLD_MAX_LIMIT))
         {
+            *config_error = false;
             printf("new micro_threshold value is: %f\r\n", float_value);
             config.micro_threshold = float_value;
         }
@@ -323,6 +326,7 @@ static cy_rslt_t json_parser_cb(cy_JSON_object_t *json_object, void *arg)
     {
         if (check_bool_validation(json_object->value, ENABLE_STRING, DISABLE_STRING))
         {
+            *config_error = false;
             printf("new macro_fft_bandpass_filter value is: %s\r\n", json_object->value);
             config.macro_fft_bandpass_filter_enabled = string_to_bool(json_object->value, ENABLE_STRING, DISABLE_STRING);
             }
@@ -336,6 +340,7 @@ static cy_rslt_t json_parser_cb(cy_JSON_object_t *json_object, void *arg)
     {
         if (check_bool_validation(json_object->value, ENABLE_STRING, DISABLE_STRING))
         {
+            *config_error = false;
             printf("new micro_fft_decimation value is: %s\r\n", json_object->value);
             config.micro_fft_decimation_enabled = string_to_bool(json_object->value, ENABLE_STRING, DISABLE_STRING);
         }
@@ -350,7 +355,7 @@ static cy_rslt_t json_parser_cb(cy_JSON_object_t *json_object, void *arg)
         if (check_mode_validation(json_object->value))
         {
             xensiv_radar_presence_mode_t mode = string_to_mode(json_object->value);
-
+            *config_error = false;
             printf("new mode value is: %s\r\n", json_object->value);
             config.mode = mode;
         }
@@ -404,7 +409,6 @@ void radar_config_task(void *pvParameters)
             /* Get mutex to block any other json parse jobs */
             if (xSemaphoreTake(sem_sub_payload, portMAX_DELAY) == pdTRUE)
             {
-                config_error = false;
                 
                 result = xensiv_radar_presence_get_config(handle, &config);
                 if (result != XENSIV_RADAR_PRESENCE_OK)
@@ -429,7 +433,6 @@ void radar_config_task(void *pvParameters)
                         snprintf(publisher_q_data.data,
                                  sizeof(publisher_q_data.data),
                                  "{\"error in configuration parameter name or invalid value/range!\"}");
-
                     }
                     else
                     {
